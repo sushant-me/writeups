@@ -10,6 +10,7 @@ one stops holding.
 
 | date | post | about |
 |---|---|---|
+| 2026-09-21 | [A benchmark found a bug in my own detector](2026-09-21-a-benchmark-found-a-bug-in-my-own-detector.md) | I built a labelled corpus to stop making unmeasured claims, and it immediately found a false positive in my own scanner — precision 0.750 → 1.000, with the failing case named in CI rather than deleted. The benchmark was wrong twice before that, the harness assumed its author's output format, and the guard added for the fix surfaced a third defect: the release reported the wrong version. Three defects, one shape — a number nothing checked. |
 | 2026-09-20 | [Structured output made my safety evaluator less safe](2026-09-20-structured-output-made-it-less-safe.md) | The counter-intuitive result behind my paper: JSON-constrained output without a reasoning field approved 46.2% of proposals the policy would have blocked, against 17.2% for free-form — and the fastest configuration was the least safe. Every number here is checked against the paper's own README and the source repository. |
 | 2026-09-19 | [The crash that wasn't: how AddressSanitizer showed my fix was for the wrong bug](2026-09-19-the-crash-that-wasnt.md) | A passing memory-safety test that segfaulted in CI; an out-of-bounds read whose fatality depends on allocator layout; closing my own pull request after the trace proved the patch was for a different bug. |
 
