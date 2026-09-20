@@ -10,7 +10,7 @@ The numbers, because they are the point:
 
 | detector | before | after |
 |---|---|---|
-| `mcpaudit` (declaration scanner) — 13 cases | P=1.000 R=1.000 | P=1.000 R=1.000 |
+| `mcpaudit` (declaration scanner) — 14 cases | P=1.000 R=1.000 | P=1.000 R=1.000 |
 | `agentbound` (code scanner) — 5 cases | **P=0.750** R=1.000 | **P=1.000** R=1.000 |
 
 Precision is where the story is. Recall was never the problem: `agentbound` found all three
