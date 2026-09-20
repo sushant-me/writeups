@@ -144,6 +144,39 @@ what it found.
 
 ---
 
+## And the same bug was in the checker I was writing all of this down with
+
+While writing this post I audited the script that verifies every claim in it. It had the same
+defect, in a place I had been trusting more than any of the four above.
+
+`check_surfaces.py` refuses to let a PDF drift from the HTML it was rendered from, because
+`PROPOSAL.pdf` once kept carrying a superseded corpus count for several rounds after the number
+had been fixed in the Markdown and the HTML. The comparison is a set difference:
+
+```python
+stale = sorted(numbers(read(pdf)) - numbers(html_text(source)))
+```
+
+`read()` shells out to `pdftotext` and returns an empty string if that fails. An empty string has
+no numbers in it, so the difference is empty, so **the check reports nothing**. It could not tell
+"the PDF agrees with its HTML" from "the PDF was never read". Reproduced on a PDF made genuinely
+stale by removing a number from its HTML:
+
+```
+with pdftotext present : FAIL   (caught, as intended)
+with pdftotext absent  : PASS   (the stale PDF slips through)
+```
+
+The workflow had never installed poppler-utils. It worked because the runner image happens to
+ship it, which is *why* nobody noticed: the dependency went unstated precisely because stating it
+was never necessary.
+
+The fix is to assert the read, not just the comparison, and the CI now mutation-tests the guard —
+`pdftotext` is hidden behind a command that fails and the checker is *required* to go red. A guard
+whose failure mode is silence has to be checked by making it fail on purpose.
+
+---
+
 ## Why the existing tests could not see any of this
 
 Every one of these packages had tests, and every test passed.
@@ -205,7 +238,10 @@ fixes cost no accuracy.
    empty, against a hostile input reports the same thing as a clean scan.
 4. **Write the regression before the fix**, from the bypass, not from the fixture. If it passes
    on the unfixed code, it is not testing the bug.
-5. **Check that the fix ships.** Tags, pins and locks are where a security fix goes to die.
+5. **Assert that the input was read, not only that it compared equal.** An empty input makes
+   almost every check pass, and a check that passes when it read nothing is indistinguishable
+   from a check that found nothing wrong.
+6. **Check that the fix ships.** Tags, pins and locks are where a security fix goes to die.
 
 Four advisories are published with reproductions and regression tests, CVE identifiers have been
 requested, and the claims are re-checked weekly by
