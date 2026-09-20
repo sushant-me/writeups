@@ -1,6 +1,6 @@
 # A number nothing recomputes
 
-*Sushant Poudel · 2026-09-21 · 9 min read*
+*Sushant Poudel · 2026-09-21 · 10 min read*
 
 Over a few days of work I found **ten wrong numbers in things I had already published**. Not
 ten typos — ten distinct facts, each of which had been *true when written*, on a CV, a profile,
@@ -166,6 +166,30 @@ the thing I should have written first.
 
 ---
 
+## Epilogue: the eleventh, found the day after this was written
+
+The checker read the repository. It never read what a visitor sees, and that gap had been
+sitting in the loop list for several rounds as an instruction to myself: *"rebuild and redeploy
+the portfolio — the live site still shows the old wording."*
+
+It did not. The reasoning was that because the site is not served from the repository by GitHub
+Pages, correcting the source could not have changed the live page. That inference was
+plausible, repeated, and never tested. Fetching the page settled it in one request: the
+corrections have been live since the commit that made them, because the host rebuilds on every
+push to the default branch.
+
+So the eleventh instance is not a wrong number. It is a **wrong instruction**, carried for
+several rounds, in the document whose first line says it exists to stop exactly this — and
+written by me after I had built the thing to prevent it. The check is now a fetch rather than a
+correction: two deployed pages, required and forbidden strings, retried because a CDN can serve
+the previous build for a few seconds.
+
+Every rule in this post is a mistake I had already made. This one was made again while
+describing them, which is the most honest evidence I can offer that the class is not a phase —
+it is what happens to any fact that nothing recomputes.
+
+---
+
 **The checker:** [github.com/sushant-me/reputation](https://github.com/sushant-me/reputation)
 — `check_surfaces.py`, `verify_evidence.py`, and the CI that runs both on every push and
-weekly. **The ten errors** are recorded in `OPEN-LOOPS.md` with what each one taught.
+weekly. **The errors** are recorded in `OPEN-LOOPS.md` with what each one taught.
