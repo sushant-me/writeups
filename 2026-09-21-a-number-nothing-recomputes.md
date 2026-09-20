@@ -14,7 +14,7 @@ hundred lines that now make each one unrepeatable.
 
 ## Why a claim verifier missed all ten
 
-I already had `verify_evidence.py`: 19 claims, each with a public source, re-checked live on
+I already had `verify_evidence.py`: 20 claims, each with a public source, re-checked live on
 every push and weekly on a schedule. It reported zero failures throughout.
 
 It was right, and that was the problem. Look at what it checks:
@@ -80,7 +80,7 @@ that not only disagreed with the file but with each other. They are now computed
 `evidence.json` and the verifier's dispatch table, and any sentence that differs fails:
 
 ```
-prose counts checked:    11 (truth: 19 claims, 15 live, 4 on request)
+prose counts checked:    11 (truth: 20 claims, 16 live, 4 on request)
 ```
 
 **4. Live version links.** Every `releases/tag/vX.Y.Z` must equal that repository's actual
@@ -156,7 +156,7 @@ dependencies, and it runs in two seconds on every push.
 - Two facts in the record are still not machine-checkable — a signed employment letter and a
   conference acceptance email. They are reported as `on-request` rather than passed silently,
   because "documentation available" and "verified" are different statements.
-- Deriving a count means the prose stops being readable on its own. `19 claims, 15 live` is
+- Deriving a count means the prose stops being readable on its own. `20 claims, 16 live` is
   clear; `{truth['claims']} claims` would not be. The number is written once and asserted,
   which is a compromise, not a solution.
 
